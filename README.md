@@ -1,3 +1,3 @@
-# Landlab_Attempts
+# Coral Reef Growth Model
 
-written in python, should run in a python console through spyder
+download whole zip, need the data files as well !
