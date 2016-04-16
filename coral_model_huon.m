@@ -1,10 +1,12 @@
-%% UPDATED CODE FOR CORAL GROWTH MODEL         COLE C. PAZAR FOR: GEOL 5700
-
-% UPLIFTING TOPOGRAPHY + CHANGING SEA LEVEL
-% HUON PINENSULA APPLICATION
-
-% UPDATED: April 15th, 2016.
-
+%% UPDATED CODE FOR CORAL GROWTH MODEL – GEOL 5700 FINAL PROJECT      
+%
+% written by: COLE C. PAZAR 
+%
+% UPLIFTING/SUBSIDING TOPOGRAPHY + REAL SEA LEVEL RECORD
+% HUON PINENSULA APPLICATION TO SUSIDING VOLCANOES AND UPLIFTING LAND
+%
+% UPDATED ON: April 16th, 2016.
+%
 %% Initialize
 
     clear global
@@ -13,40 +15,40 @@
     clf
     
     YRs = 3600*24*365; % year in seconds
-    step = 150;
-    font = 18;
+    step = 150; % choose the array sizes
+    font = 18; % choose the font size for the whole plots
     
-    % temporal array
+    % temporal array, matches the sea level array data
     tmax_yr = 150;             % tmax in ka, 150 ka
     dtyears = 1000;            % time step in years
     dt = YRs*dtyears;          % time step in seconds
     t_max = YRs*tmax_yr*1000;  % tmax in seconds
     t = t_max:-dt:0;           % time array
     
-    % spatial array
+    % spatial array, matches the topographic conditions
     x_max = 5000; % max horizontal space in meters
     dx = x_max/step;     % horizontal step in meters
     x = 0:dx:x_max;
     
-    % sea level 
+    % mathematical sea level
     deltaS = 120;    % amplitude of sea level change in meters
     Pyears = 150;     % period in ka
     P = YRs*1000;  % period in seconds
     
+    % real sea level record
     load sealevel_ka.txt
     sea_level = fliplr(transpose(sealevel_ka(:,1)));
     
-    % topography
-        
-    mm = 1; % mm for uplift/subsidence rate %%%%%%% can be pos or neg.!!!!
+    % topography used, based on real topographic conditions
+    mm = -2; % mm for uplift/subsidence rate %%%%%%% can be pos or neg.!!!!
     correction = 2.0;
     D = correction*(mm/1000)*10^-10; % subsidence rate [=] m/s
-    m = 0.1;                  % slope of ramp !!!
+    m = 0.06;                  % slope of ramp !!!
     topo_max = 200; % maximum height of ramp above mean sea level in meters
     Bmax = -m*x_max+topo_max-(D.*t); % maximum depth of rock
     
-    % coral growth
-    Gmax = 4; % max growth rate in mm/yr
+    % coral growth based on Galewsky's work on corals
+    Gmax = 10; % max growth rate in mm/yr
     Gm = Gmax*3.17*10^(-11); % max growth rate in m/s
     k = 0.1;   % extinction coefficient in m-1
     I_o = 2000; % surface light intensity in microE/m2 s
@@ -107,7 +109,7 @@ for i = 1:imax
     uplift = (D*t(i)); % try to add it in
     B = -m.*x+topo_max-uplift; % in meters
      
-    % plotting
+    % plotting the coral reef growth model
     if  (rem(t(i),t_plot)==0)
 
     figure(1)
@@ -139,11 +141,12 @@ for i = 1:imax
     end
 end
 
-    % spatial array
-    x_maxx = 150; % max horizontal space in meters
-    dxx = x_maxx/step;     % horizontal step in meters
+    % spatial array for plotting
+    x_maxx = 150; % length of time
+    dxx = x_maxx/step;     
     xx = x_maxx:-dxx:0;
-
+    
+    % plot the sea level curve and data
     figure(2)
     clf
     plot(xx,sea_level,'ko','linewidth',4)
