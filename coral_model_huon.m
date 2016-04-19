@@ -79,7 +79,7 @@
         % plotting
         
         imax = length(t);
-        n_plots = 5; % how many plots?
+        n_plots = 150; % how many plots?
         t_plot = t_max/n_plots;
      
 %% Run
