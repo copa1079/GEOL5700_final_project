@@ -1,3 +1,3 @@
 # Coral Reef Growth Model
 
-download whole zip, need the data files as well !
+output png files are listed as [uplift/subsidence rate]__[growth rate]
