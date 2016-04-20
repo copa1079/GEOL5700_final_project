@@ -40,15 +40,15 @@
     sea_level = fliplr(transpose(sealevel_ka(:,1)));
     
     % topography used, based on real topographic conditions
-    mm = -2; % mm for uplift/subsidence rate %%%%%%% can be pos or neg.!!!!
+    mm = 2.5; % mm for uplift/subsidence rate %%%%%%% can be pos or neg.!!!!
     correction = 2.0;
     D = correction*(mm/1000)*10^-10; % subsidence rate [=] m/s
     m = 0.06;                  % slope of ramp !!!
-    topo_max = 200; % maximum height of ramp above mean sea level in meters
+    topo_max = 100; % maximum height of ramp above mean sea level in meters
     Bmax = -m*x_max+topo_max-(D.*t); % maximum depth of rock
     
     % coral growth based on Galewsky's work on corals
-    Gmax = 10; % max growth rate in mm/yr
+    Gmax = 5; % max growth rate in mm/yr
     Gm = Gmax*3.17*10^(-11); % max growth rate in m/s
     k = 0.1;   % extinction coefficient in m-1
     I_o = 2000; % surface light intensity in microE/m2 s
@@ -162,4 +162,3 @@ end
     set(gca,'fontsize',font,'fontname','arial')
     legend('\delta18O points','sea level','smoothed curve','modern sea level')
     axis([0 150 -140 60])
-
